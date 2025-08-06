@@ -9,7 +9,7 @@ services:
     name: verse-1-1-0
     plan: free
     runtime: python
-    pythonVersion: 3.10  # 👈 REQUIRED: Avoid Python 3.13 incompatibilities
+    pythonVersion: 3.10  # 👈 Pin to Python 3.10 to avoid 3.13 bugs
     buildCommand: './build.sh'
     startCommand: 'gunicorn myproject.asgi:application -k uvicorn.workers.UvicornWorker'
     envVars:
