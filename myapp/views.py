@@ -99,18 +99,48 @@ def login_view(request):
     return render(request, 'myapp/login.html', {'form': form})
 
 
-def get_database_tables():
-    """Return all non-SQLite internal tables from the database."""
-    with connection.cursor() as cursor:
-        cursor.execute("""
-            SELECT table_name 
-            FROM information_schema.tables 
-            WHERE table_schema='public' AND table_type='BASE TABLE';
-        """)
+# def get_database_tables():
+#     """Return all non-SQLite internal tables from the database."""
+#     with connection.cursor() as cursor:
+#         cursor.execute("""
+#             SELECT table_name 
+#             FROM information_schema.tables 
+#             WHERE table_schema='public' AND table_type='BASE TABLE';
+#         """)
+#         # cursor.execute("""
+#         #     SELECT name FROM sqlite_master 
+#         #     WHERE type='table' 
+#         #     AND name NOT LIKE 'sqlite_%'
+#         #     AND name NOT LIKE 'django_%'
+#         #     AND name NOT LIKE 'auth_%'
+#         #     AND name NOT LIKE 'sessions%'
+#         # """)
 
-        return [row[0] for row in cursor.fetchall()]
+#         return [row[0] for row in cursor.fetchall()]
     
 
+def get_database_tables():
+    """Return all non-internal tables from the database, depending on DB backend."""
+    with connection.cursor() as cursor:
+        if connection.vendor == 'sqlite':
+            cursor.execute("""
+                SELECT name FROM sqlite_master 
+                WHERE type='table' 
+                AND name NOT LIKE 'sqlite_%'
+                AND name NOT LIKE 'django_%'
+                AND name NOT LIKE 'auth_%'
+                AND name NOT LIKE 'sessions%'
+            """)
+        elif connection.vendor == 'postgresql':
+            cursor.execute("""
+                SELECT table_name 
+                FROM information_schema.tables 
+                WHERE table_schema='public' AND table_type='BASE TABLE';
+            """)
+        else:
+            raise NotImplementedError(f"Database backend '{connection.vendor}' is not supported.")
+
+        return [row[0] for row in cursor.fetchall()]
 
 
 # =========================================
