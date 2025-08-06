@@ -9,11 +9,11 @@ services:
     name: verse-1-1-0
     plan: free
     runtime: python
-    pythonVersion: 3.10.13  # 👈 Pin to Python 3.10 to avoid 3.13 bugs
+    pythonVersion: 3.10.13  
     buildCommand: './build.sh'
     startCommand: 'gunicorn myproject.asgi:application -k uvicorn.workers.UvicornWorker'
     envVars:
-      - key: DATABASE_URL
+      - key: postgresql://safminet_db_user:a53c1wdWGzo6BpGn1Dg1A2oNy8A273an@dpg-d29f7iili9vc73flhr90-a/safminet_db
         fromDatabase:
           name: safminet-db
           property: connectionString
