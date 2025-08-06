@@ -59,7 +59,7 @@ DATABASES = {
     }
 }
 
-# DATABASES ["default"]= dj_database_url.parse("postgresql://safminet_db_user:a53c1wdWGzo6BpGn1Dg1A2oNy8A273an@dpg-d29f7iili9vc73flhr90-a.singapore-postgres.render.com/safminet_db")
+DATABASES ["default"]= dj_database_url.parse("postgresql://safminet_db_user:a53c1wdWGzo6BpGn1Dg1A2oNy8A273an@dpg-d29f7iili9vc73flhr90-a.singapore-postgres.render.com/safminet_db")
 
 # ======================== PASSWORD VALIDATION ========================
 AUTH_PASSWORD_VALIDATORS = [
