@@ -103,13 +103,11 @@ def get_database_tables():
     """Return all non-SQLite internal tables from the database."""
     with connection.cursor() as cursor:
         cursor.execute("""
-            SELECT name FROM sqlite_master 
-            WHERE type='table' 
-            AND name NOT LIKE 'sqlite_%'
-            AND name NOT LIKE 'django_%'
-            AND name NOT LIKE 'auth_%'
-            AND name NOT LIKE 'sessions%'
+            SELECT table_name 
+            FROM information_schema.tables 
+            WHERE table_schema='public' AND table_type='BASE TABLE';
         """)
+
         return [row[0] for row in cursor.fetchall()]
     
 
