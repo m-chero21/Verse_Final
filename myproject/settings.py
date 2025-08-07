@@ -64,17 +64,17 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # }
 
 # DATABASES ["default"]= dj_database_url.parse("postgresql://safminet_db_user:a53c1wdWGzo6BpGn1Dg1A2oNy8A273an@dpg-d29f7iili9vc73flhr90-a.singapore-postgres.render.com/safminet_db")
-DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://safminet_db_user:a53c1wdWGzo6BpGn1Dg1A2oNy8A273an@dpg-d29f7iili9vc73flhr90-a.singapore-postgres.render.com/safminet_db',
-        conn_max_age=600
-    )
-}
-
-
 # DATABASES = {
-#     'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+#     'default': dj_database_url.config(
+#         default='postgresql://safminet_db_user:a53c1wdWGzo6BpGn1Dg1A2oNy8A273an@dpg-d29f7iili9vc73flhr90-a.singapore-postgres.render.com/safminet_db',
+#         conn_max_age=600
+#     )
 # }
+
+
+DATABASES = {
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+}
 # # ======================== PASSWORD VALIDATION ========================
 AUTH_PASSWORD_VALIDATORS = [
     {
