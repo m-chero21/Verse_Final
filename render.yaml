@@ -9,7 +9,7 @@ services:
     name: verse-1-1-0
     plan: free
     runtime: python
-    pythonVersion: 3.10.13  
+    pythonVersion: 3.10.9
     buildCommand: './build.sh'
     startCommand: 'gunicorn myproject.asgi:application -k uvicorn.workers.UvicornWorker'
     envVars:
