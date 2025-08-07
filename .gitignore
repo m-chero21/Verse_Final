@@ -49,3 +49,4 @@ datasets/
 *.json
 *.xlsx
 *.parquet
+safaricom.csv
